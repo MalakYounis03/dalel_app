@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  
+
   /// Assets for imagesForgetPassword
   /// assets/images/forget_password.png
-  static const String imagesForgetPassword = "assets/images/forget_password.png";
+  static const String imagesForgetPassword =
+      "assets/images/forget_password.png";
 
   /// Assets for imagesHome1
   /// assets/images/home1.png
@@ -28,7 +29,8 @@ class Assets {
 
   /// Assets for imagesHomeIconActive
   /// assets/images/home_icon_active.png
-  static const String imagesHomeIconActive = "assets/images/home_icon_active.png";
+  static const String imagesHomeIconActive =
+      "assets/images/home_icon_active.png";
 
   /// Assets for imagesMenu
   /// assets/images/menu.png
@@ -64,7 +66,8 @@ class Assets {
 
   /// Assets for imagesShopingCartActive
   /// assets/images/shoping_cart_active.png
-  static const String imagesShopingCartActive = "assets/images/shoping_cart_active.png";
+  static const String imagesShopingCartActive =
+      "assets/images/shoping_cart_active.png";
 
   /// Assets for imagesShoppingCart
   /// assets/images/shopping-cart.png
@@ -72,7 +75,8 @@ class Assets {
 
   /// Assets for imagesSucccesOrderIcon
   /// assets/images/succces_order_icon.png
-  static const String imagesSucccesOrderIcon = "assets/images/succces_order_icon.png";
+  static const String imagesSucccesOrderIcon =
+      "assets/images/succces_order_icon.png";
 
   /// Assets for imagesVector
   /// assets/images/vector.png
@@ -94,4 +98,3 @@ class Assets {
   /// assets/images/victor4.png
   static const String imagesVictor4 = "assets/images/victor4.png";
 }
-
