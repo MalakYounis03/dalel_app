@@ -21,15 +21,13 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
+          child: ListView(
+            physics: BouncingScrollPhysics(),
             children: [
               SizedBox(height: 40,),
-              Text(AppStrings.skip,
-                style: CustomTextStyles.poppins300style16.copyWith(
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+              customNavBar(),
               OnBoardingWidgetBody(controller: _controller),
+              SizedBox(height: 88,),
               CustomBtn(
                 color: AppColors.deepBrown,
                 onPressed: ,
@@ -41,5 +39,13 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         ),
       ),
     );
+  }
+
+  Text customNavBar() {
+    return Text(AppStrings.skip,
+              style: CustomTextStyles.poppins300style16.copyWith(
+                fontWeight: FontWeight.w400,
+              ),
+            );
   }
 }
