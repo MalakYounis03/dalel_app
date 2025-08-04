@@ -24,8 +24,8 @@ class OnBoardingWidgetBody extends StatelessWidget {
           return Column(
             children: [
               Container(
-                height: 290,
-                width: 343,
+                height: 300,
+                width: 400,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(onBoardingData[index].image),
