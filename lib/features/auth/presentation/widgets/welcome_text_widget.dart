@@ -7,7 +7,7 @@ class WelcomeTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 152, bottom: 16),
+      padding: EdgeInsets.only(top: 15, bottom: 16),
       child: Text(
         title,
         style: CustomTextStyles.poppins600style28,

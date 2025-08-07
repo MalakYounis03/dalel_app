@@ -6,41 +6,39 @@ import 'package:dalel_app/core/widgets/custom_btn.dart';
 import 'package:dalel_app/features/auth/presentation/auth_cubit/cubit/auth_cubit.dart';
 import 'package:dalel_app/features/auth/presentation/auth_cubit/cubit/auth_state.dart';
 import 'package:dalel_app/features/auth/presentation/widgets/custom_text_form_field.dart';
-import 'package:dalel_app/features/auth/presentation/widgets/i_have_agree_widget.dart';
+import 'package:dalel_app/features/auth/presentation/widgets/forget_password_text_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomSignUpForm extends StatelessWidget {
-  const CustomSignUpForm({super.key});
+class CustomSignInForm extends StatefulWidget {
+  const CustomSignInForm({super.key});
+
+  @override
+  State<CustomSignInForm> createState() => _CustomSignInFormState();
+}
+
+class _CustomSignInFormState extends State<CustomSignInForm> {
   @override
   Widget build(BuildContext context) {
+    AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is SignUpSuccessState) {
-          showToast("Account Created Successfuly !");
-          customReplacementNavigate(context, "/home");
-        } else if (state is SignUpFailureState) {
+        if (state is SignInSuccessState) {
+          FirebaseAuth.instance.currentUser!.emailVerified
+              ? customReplacementNavigate(context, "/homeNavBar")
+              : showToast("Please Verify Your Account");
+        } else if (state is SignInFailureState) {
           showToast(state.errorMessage);
         }
       },
+
       builder: (context, state) {
-        AuthCubit authCubit = BlocProvider.of<AuthCubit>(context);
         return Form(
-          key: authCubit.signUpFormKey,
+          key: authCubit.signInFormKey,
+
           child: Column(
             children: [
-              CustomTextFormField(
-                text: AppStrings.fristName,
-                onChanged: (firstName) {
-                  authCubit.firstName = firstName;
-                },
-              ),
-              CustomTextFormField(
-                text: AppStrings.lastName,
-                onChanged: (lastName) {
-                  authCubit.lastName = lastName;
-                },
-              ),
               CustomTextFormField(
                 text: AppStrings.emailAddress,
                 onChanged: (emailAddress) {
@@ -64,26 +62,19 @@ class CustomSignUpForm extends StatelessWidget {
                   authCubit.password = password;
                 },
               ),
-              IHaveAgreeWidget(
-                text1: AppStrings.iHaveAgreeToOur,
-                text2: AppStrings.termsAndCondition,
-              ),
-              SizedBox(height: 70),
-              state is SignUpLoadingState
+
+              const SizedBox(height: 16),
+              const ForgetPasswordTextWidget(),
+              const SizedBox(height: 102),
+              state is SignInLoadingState
                   ? CircularProgressIndicator(color: AppColors.primaryColor)
                   : CustomBtn(
-                      color: authCubit.termsAndConditionCheckBoxValue == false
-                          ? AppColors.grey
-                          : null,
-                      onPressed: () {
-                        if (authCubit.termsAndConditionCheckBoxValue == true) {
-                          if (authCubit.signUpFormKey.currentState!
-                              .validate()) {
-                            authCubit.createUserWithEmailAndPassword();
-                          }
+                      onPressed: () async {
+                        if (authCubit.signInFormKey.currentState!.validate()) {
+                          await authCubit.sigInWithEmailAndPassword();
                         }
                       },
-                      text: AppStrings.signUp,
+                      text: AppStrings.signIn,
                     ),
             ],
           ),

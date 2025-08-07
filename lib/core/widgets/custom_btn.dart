@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CustomBtn extends StatelessWidget {
   const CustomBtn({
     super.key,
-    required this.color,
+    this.color,
     required this.onPressed,
     required this.text,
   });
