@@ -26,7 +26,7 @@ class _CustomSignInFormState extends State<CustomSignInForm> {
       listener: (context, state) {
         if (state is SignInSuccessState) {
           FirebaseAuth.instance.currentUser!.emailVerified
-              ? customReplacementNavigate(context, "/homeNavBar")
+              ? customReplacementNavigate(context, "/home")
               : showToast("Please Verify Your Account");
         } else if (state is SignInFailureState) {
           showToast(state.errorMessage);
