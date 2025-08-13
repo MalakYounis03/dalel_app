@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dalel_app/features/auth/presentation/auth_cubit/cubit/auth_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
@@ -15,7 +16,7 @@ class AuthCubit extends Cubit<AuthState> {
   GlobalKey<FormState> signInFormKey = GlobalKey();
   GlobalKey<FormState> forgotPasswordFormKey = GlobalKey();
 
-  createUserWithEmailAndPassword() async {
+  Future<void> createUserWithEmailAndPassword() async {
     try {
       emit(SignUpLoadingState());
 
@@ -43,7 +44,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  updateTermsAndConditionCheckBox({required newValue}) {
+  void updateTermsAndConditionCheckBox({required newValue}) {
     termsAndConditionCheckBoxValue = newValue;
     emit(TermsAndConditionUpdateState());
   }
@@ -85,7 +86,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  verifyEmail() async {
+  Future<void> verifyEmail() async {
     await FirebaseAuth.instance.currentUser!.sendEmailVerification();
   }
 
@@ -97,5 +98,14 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       emit(ResetPasswordFailureState(errMessage: e.toString()));
     }
+  }
+
+  Future<void> addUserProfile() async {
+    CollectionReference users = FirebaseFirestore.instance.collection("users");
+    await users.add({
+      "email": emailAddress,
+      "frist_name": firstName,
+      "last_name": lastName,
+    });
   }
 }
