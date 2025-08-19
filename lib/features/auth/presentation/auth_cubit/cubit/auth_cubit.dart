@@ -15,6 +15,40 @@ class AuthCubit extends Cubit<AuthState> {
   GlobalKey<FormState> signUpFormKey = GlobalKey();
   GlobalKey<FormState> signInFormKey = GlobalKey();
   GlobalKey<FormState> forgotPasswordFormKey = GlobalKey();
+  Future<void> signUpWithEmailAndPassword() async {
+    try {
+      emit(SignUpLoadingState());
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailAddress!,
+        password: password!,
+      );
+      await addUserProfile();
+      await verifyEmail();
+      emit(SignUpSuccessState());
+    } on FirebaseAuthException catch (e) {
+      _signUpHandleException(e);
+    } catch (e) {
+      emit(SignUpFailureState(errorMessage: e.toString()));
+    }
+  }
+
+  void _signUpHandleException(FirebaseAuthException e) {
+    if (e.code == 'weak-password') {
+      emit(
+        SignUpFailureState(errorMessage: 'The password provided is too weak.'),
+      );
+    } else if (e.code == 'email-already-in-use') {
+      emit(
+        SignUpFailureState(
+          errorMessage: 'The account already exists for that email.',
+        ),
+      );
+    } else if (e.code == 'invalid-email') {
+      emit(SignUpFailureState(errorMessage: 'The email is invalid.'));
+    } else {
+      emit(SignUpFailureState(errorMessage: e.code));
+    }
+  }
 
   Future<void> createUserWithEmailAndPassword() async {
     try {
