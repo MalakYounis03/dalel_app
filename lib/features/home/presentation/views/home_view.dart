@@ -1,3 +1,4 @@
+import 'package:dalel_app/features/home/presentation/widgets/home_sections.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatelessWidget {
@@ -5,6 +6,19 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("home")));
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Scaffold(
+        body: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(child: HomeAppBarSection()),
+            SliverToBoxAdapter(child: HistoricalPeriodsSection()),
+            SliverToBoxAdapter(child: HistoricalCharacterSection()),
+            SliverToBoxAdapter(child: HistoricalSouvenirsSection()),
+          ],
+        ),
+      ),
+    );
   }
 }
