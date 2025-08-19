@@ -44,7 +44,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void updateTermsAndConditionCheckBox({required newValue}) {
+  void updateTermsAndConditionCheckBox({required bool newValue}) {
     termsAndConditionCheckBoxValue = newValue;
     emit(TermsAndConditionUpdateState());
   }
