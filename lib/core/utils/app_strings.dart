@@ -23,7 +23,7 @@ abstract class AppStrings {
 }
 
 abstract class FireBaseStrings {
-  static const String historicalPeriods = "historical_periods";
+  static const String historicalPeriods = "ancient_egypt";
   static const String name = "name";
   static const String description = "description";
   static const String image = "image";

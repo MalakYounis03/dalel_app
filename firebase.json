@@ -1,1 +1,48 @@
-{"firestore":{"database":"(default)","location":"eur3","rules":"firestore.rules","indexes":"firestore.indexes.json"},"storage":{"rules":"storage.rules"},"flutter":{"platforms":{"android":{"default":{"projectId":"dalel-app-5a35f","appId":"1:284112264945:android:58979fbf6f9047dc84d350","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"dalel-app-5a35f","configurations":{"android":"1:284112264945:android:58979fbf6f9047dc84d350","ios":"1:284112264945:ios:0957ab8918f2d71f84d350","macos":"1:284112264945:ios:0957ab8918f2d71f84d350","web":"1:284112264945:web:b66aea62eeb059d984d350","windows":"1:284112264945:web:33975472687e618084d350"}}}}}}
+{
+  "firestore": {
+    "database": "(default)",
+    "location": "eur3",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "dalel-app-5a35f",
+          "appId": "1:284112264945:android:58979fbf6f9047dc84d350",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "dalel-app-5a35f",
+          "configurations": {
+            "android": "1:284112264945:android:58979fbf6f9047dc84d350",
+            "ios": "1:284112264945:ios:0957ab8918f2d71f84d350",
+            "macos": "1:284112264945:ios:0957ab8918f2d71f84d350",
+            "web": "1:284112264945:web:b66aea62eeb059d984d350",
+            "windows": "1:284112264945:web:33975472687e618084d350"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

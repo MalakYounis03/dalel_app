@@ -1,6 +1,8 @@
-import 'package:dalel_app/core/utils/app_assets.dart';
-import 'package:dalel_app/core/utils/app_colors.dart';
-import 'package:dalel_app/core/utils/app_text_styles.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dalel_app/core/utils/app_strings.dart';
+import 'package:dalel_app/core/widgets/custom_shimmer_category.dart';
+import 'package:dalel_app/features/home/data/models/historical_periods_model.dart';
+import 'package:dalel_app/features/home/presentation/widgets/historical_periods_items.dart';
 import 'package:flutter/material.dart';
 
 class HistoricalPeriods extends StatelessWidget {
@@ -8,67 +10,43 @@ class HistoricalPeriods extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        HistoricalPeriodsItem(asset: Assets.imagesHome1, text: "Ancient Egypt"),
-        HistoricalPeriodsItem(asset: Assets.imagesHome2, text: "Islamic Era "),
-      ],
-    );
-  }
-}
+    return FutureBuilder<QuerySnapshot>(
+      future: FirebaseFirestore.instance
+          .collection(FireBaseStrings.historicalPeriods)
+          .get(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        }
 
-class HistoricalPeriodsItem extends StatelessWidget {
-  const HistoricalPeriodsItem({
-    super.key,
-    required this.asset,
-    required this.text,
-  });
-  final String asset;
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 96,
-      width: 164,
-      decoration: BoxDecoration(
-        color: AppColors.offWhite,
-        borderRadius: BorderRadius.circular(5),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.grey,
-            blurRadius: 10,
-            offset: Offset(0, 7),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          SizedBox(width: 15),
-          SizedBox(
-            height: 48,
-            width: 62,
-            child: Text(
-              text,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              style: CustomTextStyles.poppins500style18.copyWith(
-                fontSize: 16,
-                color: AppColors.deepBrown,
-              ),
+        if (snapshot.hasData && !snapshot.data!.docs[0].exists) {
+          return Text("Document does not exist");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          List<HistoricalPeriodsModel> historicalPeriods = [];
+          for (int i = 0; i < snapshot.data!.docs.length; i++) {
+            historicalPeriods.add(
+              HistoricalPeriodsModel.fromJson(snapshot.data!.docs[i]),
+            );
+          }
+          return SizedBox(
+            height: 96,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return HistoricalPeriodsItem(model: historicalPeriods[index]);
+              },
+              separatorBuilder: (context, index) {
+                return SizedBox(width: 10);
+              },
+              itemCount: snapshot.data!.docs.length,
             ),
-          ),
-          Container(
-            height: 64,
-            width: 47,
-            decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage(asset)),
-            ),
-          ),
-          const SizedBox(width: 16),
-        ],
-      ),
+          );
+        }
+
+        return CustomShimmerCategory();
+      },
     );
   }
 }

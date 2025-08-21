@@ -17,7 +17,7 @@ class CustomCategoryListView extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: 6,
         itemBuilder: (_, index) {
-          return const CustomCategoryListViewItem();
+          return CustomCategoryListViewItem();
         },
       ),
     );
