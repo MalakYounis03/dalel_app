@@ -24,9 +24,9 @@ class HomeCubit extends Cubit<HomeState> {
               historicalPeriods.add(
                 HistoricalPeriodsModel.fromJson(element.data(), warsList),
               );
+              emit(GetHistoricalPeriodsSuccess());
             }),
           );
-      emit(GetHistoricalPeriodsSuccess());
     } on Exception catch (e) {
       emit(GetHistoricalPeriodsFailure(errMessage: e.toString()));
     }
