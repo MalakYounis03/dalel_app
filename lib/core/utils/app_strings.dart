@@ -7,7 +7,7 @@ abstract class AppStrings {
   //!Auth Strings
   welcome = "Welcome!", welcomeBack = "Welcome Back!", fristName = "First Name", lastName = "Last Name", emailAddress = "Email Address", password = "Password", iHaveAgreeToOur = "I have agree to our ", termsAndCondition = "Terms and Condition", signUp = "Sign Up", signIn = "Sign In", alreadyHaveAnAccount = "Already have an account ? ", dontHaveAnAccount = "Don’t have an account ? ", forgotPassword = "Forgot Password ?",
   //!Home Strings
-  recommendations = "Recommendations", about = "About", wars = "Wars",
+  recommendations = "Recommendations", about = "About", wars = "Wars", ancientEgyptWars = "Ancient Egypt Wars",
   //!Search Strings
   searchDeepIntoTheHistory = "Search deep into the history", recent = "Recent",
   //!Profile Strings
@@ -24,8 +24,11 @@ abstract class AppStrings {
 
 abstract class FireBaseStrings {
   static const String historicalPeriods = "historical_periods";
+  static const String historicalCharacters = "historical_characters";
+
   static const String name = "name";
   static const String description = "description";
   static const String image = "image";
   static const String wars = "wars";
+  static const String recommendations = "recommendations";
 }
