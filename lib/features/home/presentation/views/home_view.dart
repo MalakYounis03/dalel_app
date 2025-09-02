@@ -15,7 +15,7 @@ class HomeView extends StatelessWidget {
             SliverToBoxAdapter(child: HomeAppBarSection()),
             SliverToBoxAdapter(child: HistoricalPeriodsSection()),
             SliverToBoxAdapter(child: HistoricalCharacterSection()),
-            SliverToBoxAdapter(child: HistoricalSouvenirsSection()),
+            // SliverToBoxAdapter(child: HistoricalSouvenirsSection()),
           ],
         ),
       ),

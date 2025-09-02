@@ -1,9 +1,15 @@
-import 'package:dalel_app/features/home/presentation/widgets/custom_category_list_view_item.dart';
+import 'package:dalel_app/core/model/data_model.dart';
+import 'package:dalel_app/core/widgets/custom_category_list_view_item.dart';
 import 'package:flutter/material.dart';
 
 class CustomCategoryListView extends StatelessWidget {
-  const CustomCategoryListView({super.key});
-
+  const CustomCategoryListView({
+    super.key,
+    required this.dataList,
+    required this.routePath,
+  });
+  final List<DataModel> dataList;
+  final String routePath;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -15,9 +21,12 @@ class CustomCategoryListView extends StatelessWidget {
           return const SizedBox(width: 16);
         },
         scrollDirection: Axis.horizontal,
-        itemCount: 6,
+        itemCount: dataList.length,
         itemBuilder: (_, index) {
-          return CustomCategoryListViewItem();
+          return CustomCategoryListViewItem(
+            model: dataList[index],
+            routePath: routePath,
+          );
         },
       ),
     );

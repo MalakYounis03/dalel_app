@@ -2,6 +2,11 @@ import 'package:dalel_app/features/auth/presentation/auth_cubit/cubit/auth_cubit
 import 'package:dalel_app/features/auth/presentation/views/forget_password_view.dart';
 import 'package:dalel_app/features/auth/presentation/views/sign_in_view.dart';
 import 'package:dalel_app/features/auth/presentation/views/sign_up_view.dart';
+import 'package:dalel_app/features/home/data/models/historical_characters_model.dart';
+import 'package:dalel_app/features/home/data/models/historical_periods_model.dart';
+import 'package:dalel_app/features/home/presentation/cubit/home_cubit.dart';
+import 'package:dalel_app/features/home/presentation/views/historical_character_details_view.dart';
+import 'package:dalel_app/features/home/presentation/views/historical_periods_details_view.dart';
 
 import 'package:dalel_app/features/home/presentation/views/home_view.dart';
 import 'package:dalel_app/features/home/presentation/widgets/home_nav_bar_widget.dart';
@@ -35,6 +40,21 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: "/homeNavBar",
       builder: (context, state) => HomeNavBarWidget(),
+    ),
+    GoRoute(
+      path: "/historicalPeriodsDetailsView",
+      builder: (context, state) => BlocProvider(
+        create: (context) => HomeCubit()..getHistoricalCharacters(),
+        child: HistoricalPeriodsDetailsView(
+          model: state.extra as HistoricalPeriodsModel,
+        ),
+      ),
+    ),
+    GoRoute(
+      path: "/historicalCharactersDetailsView",
+      builder: (context, state) => HistoricalCharacterDetailsView(
+        model: state.extra as HistoricalCharactersModel,
+      ),
     ),
   ],
 );

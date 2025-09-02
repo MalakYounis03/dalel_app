@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dalel_app/core/utils/app_strings.dart';
+import 'package:dalel_app/features/home/data/models/historical_characters_model.dart';
 import 'package:dalel_app/features/home/data/models/historical_periods_model.dart';
 import 'package:dalel_app/features/home/data/models/wars_model.dart';
 import 'package:dalel_app/features/home/presentation/cubit/home_state.dart';
@@ -8,11 +9,12 @@ import 'package:dalel_app/features/home/presentation/cubit/home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   List<HistoricalPeriodsModel> historicalPeriods = [];
+  List<HistoricalCharactersModel> historicalCharacters = [];
+
   List<WarsModel> warsList = [];
 
   getHistoricalPeridos() async {
     print("*****************************THIS METHOD");
-
     try {
       emit(GetHistoricalPeriodsLoading());
       await FirebaseFirestore.instance
@@ -29,6 +31,26 @@ class HomeCubit extends Cubit<HomeState> {
           );
     } on Exception catch (e) {
       emit(GetHistoricalPeriodsFailure(errMessage: e.toString()));
+    }
+  }
+
+  getHistoricalCharacters() async {
+    try {
+      emit(GetHistoricalCharactersLoading());
+      await FirebaseFirestore.instance
+          .collection(FireBaseStrings.historicalCharacters)
+          .get()
+          .then(
+            (value) => value.docs.forEach((element) async {
+              await getWarsList(element);
+              historicalCharacters.add(
+                HistoricalCharactersModel.fromJson(element.data(), warsList),
+              );
+              emit(GetHistoricalCharactersSuccess());
+            }),
+          );
+    } on Exception catch (e) {
+      emit(GetHistoricalCharactersFailure(errMessage: e.toString()));
     }
   }
 
