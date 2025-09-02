@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dalel_app/core/utils/app_assets.dart';
-import 'package:dalel_app/core/utils/app_colors.dart';
 import 'package:dalel_app/core/utils/app_strings.dart';
-import 'package:dalel_app/core/utils/app_text_styles.dart';
 import 'package:dalel_app/core/widgets/custom_header_text.dart';
+import 'package:dalel_app/features/home/presentation/widgets/read_more_text.dart';
 import 'package:flutter/material.dart';
 
 class PeriodDetailsSection extends StatelessWidget {
@@ -36,14 +35,9 @@ class PeriodDetailsSection extends StatelessWidget {
                 Positioned(top: -24, child: Image.asset(Assets.imagesVictor4)),
                 SizedBox(
                   width: 196,
-                  height: 220,
-                  child: Text(
-                    description,
-                    maxLines: 10,
-                    overflow: TextOverflow.ellipsis,
-                    style: CustomTextStyles.poppins500style14.copyWith(
-                      color: AppColors.black,
-                    ),
+                  height: 203,
+                  child: SingleChildScrollView(
+                    child: CustomReadMoreText(text: description, trimLines: 7),
                   ),
                 ),
               ],

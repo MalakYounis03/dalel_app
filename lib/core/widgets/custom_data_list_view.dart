@@ -21,7 +21,7 @@ class CustomDataListView extends StatelessWidget {
           return const SizedBox(width: 10);
         },
         clipBehavior: Clip.none,
-        itemCount: 2,
+        itemCount: dataList.length,
         itemBuilder: (context, index) {
           return CustomDataListViewItem(
             model: dataList[index],
